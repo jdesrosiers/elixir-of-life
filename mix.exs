@@ -7,6 +7,7 @@ defmodule Life.Mixfile do
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     preferred_cli_env: [espec: :test],
      deps: deps()]
   end
 
@@ -27,6 +28,8 @@ defmodule Life.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [
+      {:espec, "~> 1.2.0", only: :test},
+    ]
   end
 end
