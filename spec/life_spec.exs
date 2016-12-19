@@ -21,4 +21,10 @@ defmodule LifeSpec do
       expect Life.next_gen(:live, 8) |> should(eq :dead)
     end
   end
+
+  describe "Any dead cell with exactly three live neighbors" do
+    it "should be alive in the next generation" do
+      expect Life.next_gen(:dead, 3) |> should(eq :live)
+    end
+  end
 end
