@@ -20,8 +20,57 @@ defmodule WorldSpec do
       expect World.neighbors(world, point) |> should(eq 0)
     end
 
-    xit "should increment the neighbor count for the cell above it" do
-      neighbor = Point.north_of(point)
+    it "should increment the neighbor count for the cell to the north" do
+      neighbor = point |> Point.north
+
+      expect World.state(world, neighbor) |> should(eq :dead)
+      expect World.neighbors(world, neighbor) |> should(eq 1)
+    end
+
+    it "should increment the neighbor count for the cell to the south" do
+      neighbor = point |> Point.south
+
+      expect World.state(world, neighbor) |> should(eq :dead)
+      expect World.neighbors(world, neighbor) |> should(eq 1)
+    end
+
+    it "should increment the neighbor count for the cell to the west" do
+      neighbor = point |> Point.west
+
+      expect World.state(world, neighbor) |> should(eq :dead)
+      expect World.neighbors(world, neighbor) |> should(eq 1)
+    end
+
+    it "should increment the neighbor count for the cell to the east" do
+      neighbor = point |> Point.east
+
+      expect World.state(world, neighbor) |> should(eq :dead)
+      expect World.neighbors(world, neighbor) |> should(eq 1)
+    end
+
+    it "should increment the neighbor count for the cell to the northwest" do
+      neighbor = point |> Point.northwest
+
+      expect World.state(world, neighbor) |> should(eq :dead)
+      expect World.neighbors(world, neighbor) |> should(eq 1)
+    end
+
+    it "should increment the neighbor count for the cell to the northeast" do
+      neighbor = point |> Point.northeast
+
+      expect World.state(world, neighbor) |> should(eq :dead)
+      expect World.neighbors(world, neighbor) |> should(eq 1)
+    end
+
+    it "should increment the neighbor count for the cell to the southeast" do
+      neighbor = point |> Point.southeast
+
+      expect World.state(world, neighbor) |> should(eq :dead)
+      expect World.neighbors(world, neighbor) |> should(eq 1)
+    end
+
+    it "should increment the neighbor count for the cell to the southwest" do
+      neighbor = point |> Point.southwest
 
       expect World.state(world, neighbor) |> should(eq :dead)
       expect World.neighbors(world, neighbor) |> should(eq 1)
