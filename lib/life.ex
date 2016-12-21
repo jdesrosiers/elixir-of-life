@@ -3,6 +3,7 @@ defmodule Life do
 
   def dead, do: %__MODULE__{}
   def live, do: %__MODULE__{state: :live}
+  def live(cell), do: %__MODULE__{state: :live, neighbors: cell.neighbors}
 
   def next_gen(:live, neighbors) when neighbors < 2, do: :dead # underpopulation
   def next_gen(:live, neighbors) when neighbors == 2 or neighbors == 3, do: :live # survival

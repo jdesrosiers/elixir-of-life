@@ -28,4 +28,22 @@ defmodule WorldSpec do
     it "should increment south neighbor count", do: expect_one_neighbor world, point |> Point.south
     it "should increment southwest neighbor count", do: expect_one_neighbor world, point |> Point.southwest
   end
+
+  describe "Neighbor count example" do
+    # # # # # #
+    # 1 1 2 1 1
+    # 1 * 3 * 2
+    # 1 1 3 * 2
+    #     1 1 1
+    let :world, do: World.empty
+            |> World.add(%Point{x: 1, y: 1})
+            |> World.add(%Point{x: 3, y: 2})
+            |> World.add(%Point{x: 3, y: 1})
+
+    it "should have 1 neighbor at (1, 0)", do: expect world |> World.neighbors(%Point{x: 1, y: 0}) |> should(eq 1)
+    it "should have 1 neighbor at (3, 1)", do: expect world |> World.neighbors(%Point{x: 3, y: 1}) |> should(eq 1)
+    it "should have 1 neighbor at (3, 2)", do: expect world |> World.neighbors(%Point{x: 3, y: 2}) |> should(eq 1)
+    it "should have 2 neighbors at (2, 0)", do: expect world |> World.neighbors(%Point{x: 2, y: 0}) |> should(eq 2)
+    it "should have 3 neighbors at (2, 1)", do: expect world |> World.neighbors(%Point{x: 2, y: 1}) |> should(eq 3)
+  end
 end

@@ -10,9 +10,9 @@ defmodule World do
   ] |> Enum.map(&(&1.(point)))
 
   def add(world, point) do
-    world = put_in world[point], Life.live
+    world = world |> Map.update(point, Life.live, &(&1 |> Life.live))
     point |> neighbors |> Enum.reduce(world, fn neighbor, world ->
-      put_in world[neighbor], Life.dead |> Life.add_neighbor
+      world |> Map.update(neighbor, Life.dead |> Life.add_neighbor, &(&1 |> Life.add_neighbor))
     end)
   end
 end
