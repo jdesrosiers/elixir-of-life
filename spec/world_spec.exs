@@ -48,11 +48,74 @@ defmodule WorldSpec do
   end
 
   describe "Adding a live cell where one already exists" do
-    it "should not be allowed" do
+    it "should not increment neighbors" do
       world = World.empty
               |> World.add(%Point{x: 1, y: 1})
               |> World.add(%Point{x: 1, y: 1})
       expect world |> World.neighbors(%Point{x: 0, y: 0}) |> should(eq 1)
+    end
+  end
+
+  describe "Glider" do
+    def to_points(input) do
+      for {row, x} <- Enum.with_index(input),
+          {value, y} <- Enum.with_index(row),
+          value == 1 do
+        %Point{x: x, y: y}
+      end
+    end
+
+    def add(world, points), do: points |> Enum.reduce(world, &World.add(&2, &1))
+
+    let :glider_0, do: World.empty |> add([
+      [0, 1, 0, 0],
+      [0, 0, 1, 0],
+      [1, 1, 1, 0],
+      [0, 0, 0, 0],
+    ] |> to_points)
+
+    let :glider_1, do: World.empty |> add([
+      [0, 0, 0, 0],
+      [1, 0, 1, 0],
+      [0, 1, 1, 0],
+      [0, 1, 0, 0]
+    ] |> to_points)
+
+    context "glider_0" do
+      it "should become glider_1", do: expect glider_0 |> World.next_gen |> should(eq glider_1)
+    end
+
+    let :glider_2, do: World.empty |> add([
+      [0, 0, 0, 0],
+      [0, 0, 1, 0],
+      [1, 0, 1, 0],
+      [0, 1, 1, 0]
+    ] |> to_points)
+
+    context "glider_1" do
+      it "should become glider_2", do: expect glider_1 |> World.next_gen |> should(eq glider_2)
+    end
+
+    let :glider_3, do: World.empty |> add([
+      [0, 0, 0, 0],
+      [0, 1, 0, 0],
+      [0, 0, 1, 1],
+      [0, 1, 1, 0]
+    ] |> to_points)
+
+    context "glider_2" do
+      it "should become glider_3", do: expect glider_2 |> World.next_gen |> should(eq glider_3)
+    end
+
+    let :glider_4, do: World.empty |> add([
+      [0, 0, 0, 0],
+      [0, 0, 1, 0],
+      [0, 0, 0, 1],
+      [0, 1, 1, 1]
+    ] |> to_points)
+
+    context "glider_3" do
+      it "should become glider_4", do: expect glider_3 |> World.next_gen |> should(eq glider_4)
     end
   end
 end

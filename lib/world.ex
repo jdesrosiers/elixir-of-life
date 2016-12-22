@@ -23,4 +23,12 @@ defmodule World do
       world |> Map.update(neighbor, Life.dead |> Life.add_neighbor, &(&1 |> Life.add_neighbor))
     end)
   end
+
+  def next_gen(world) do
+    for {point, cell} <- world,
+        %Life{state: state, neighbors: neighbors} = cell,
+        Life.next_gen(state, neighbors) == :live do
+      point
+    end |> Enum.reduce(empty, &World.add(&2, &1))
+  end
 end
