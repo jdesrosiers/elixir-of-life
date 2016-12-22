@@ -46,4 +46,13 @@ defmodule WorldSpec do
     it "should have 2 neighbors at (2, 0)", do: expect world |> World.neighbors(%Point{x: 2, y: 0}) |> should(eq 2)
     it "should have 3 neighbors at (2, 1)", do: expect world |> World.neighbors(%Point{x: 2, y: 1}) |> should(eq 3)
   end
+
+  describe "Adding a live cell where one already exists" do
+    it "should not be allowed" do
+      world = World.empty
+              |> World.add(%Point{x: 1, y: 1})
+              |> World.add(%Point{x: 1, y: 1})
+      expect world |> World.neighbors(%Point{x: 0, y: 0}) |> should(eq 1)
+    end
+  end
 end
