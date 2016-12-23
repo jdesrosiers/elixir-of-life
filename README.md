@@ -1,24 +1,5 @@
-# Life
+Conway's Game of Life Kata
+==========================
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
-  1. Add `life` to your list of dependencies in `mix.exs`:
-
-    ```elixir
-    def deps do
-      [{:life, "~> 0.1.0"}]
-    end
-    ```
-
-  2. Ensure `life` is started before your application:
-
-    ```elixir
-    def application do
-      [applications: [:life]]
-    end
-    ```
-
+This is a simple kata written in elixir.  In general, but not entirely, commits represent a full
+red-green-refactor cycle.
